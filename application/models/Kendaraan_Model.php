@@ -10,7 +10,8 @@ class Kendaraan_Model extends CI_Model
 
   public function tampil_satu($id)
   {
-    return $this->db->get('kendaraan', ['plat_nomor' => $id])->row_array();
+    // var_dump($id);
+    return $this->db->get_where('kendaraan', array('plat_nomor' => $id))->row_array();
   }
 
   public function tambah($data)
@@ -24,10 +25,22 @@ class Kendaraan_Model extends CI_Model
     $this->db->set('kursi', $data['kursi']);
     $this->db->set('jenis', $data['jenis']);
     $this->db->set('harga', $data['harga']);
+    $this->db->set('gambar', $data['gambar']);
+    $this->db->set('url', $data['url']);
     $this->db->where('plat_nomor', $data['plat_nomor']);
     $this->db->update('kendaraan');
 
     return $this->db->affected_rows();
+  }
+
+  public function hapus($id)
+  {
+    return $this->db->delete('kendaraan', ['plat_nomor' => $id]);
+  }
+
+  public function cek_gambar($file)
+  {
+    return $this->db->get_where('kendaraan', ['gambar' => $file])->row_array();
   }
 }
 

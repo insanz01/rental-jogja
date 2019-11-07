@@ -89,4 +89,16 @@ class Karyawan extends CI_Controller
       }
     }
   }
+
+  public function hapus()
+  {
+    $id = $this->input->post('kode');
+    if ($this->karyawan->hapus($id)) {
+      $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil dihapus!</div>');
+    } else {
+      $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data gagal dihapus!</div>');
+    }
+
+    redirect('Karyawan/index');
+  }
 }

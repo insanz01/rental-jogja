@@ -35,28 +35,28 @@
       <!-- Transaksi -->
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('transaksi/index') ?>">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Transaksi</span></a>
       </li>
 
       <!-- Kendaraan -->
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('kendaraan/index') ?>">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-car-side"></i>
           <span>Kendaraan</span></a>
       </li>
 
       <!-- Customer -->
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('customer/index') ?>">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-users"></i>
           <span>Customer</span></a>
       </li>
 
       <!-- Karyawan -->
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('karyawan/index') ?>">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-user-secret"></i>
           <span>Karyawan</span></a>
       </li>
 

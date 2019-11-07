@@ -13,7 +13,7 @@
             </div>
             <div class="form-group">
               <label for="nomor">Nomor HP</label>
-              <input type="text" class="form-control" name="nomor" id="nomor" value="<?= $karyawan['nomor'] ?>">
+              <input type="text" class="form-control" name="nomor" id="nomor" value="<?= $karyawan['nohp'] ?>">
             </div>
             <div class="form-group">
               <label for="gaji">Gaji Karyawan</label>
