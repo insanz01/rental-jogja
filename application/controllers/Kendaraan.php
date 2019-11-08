@@ -7,6 +7,10 @@ class Kendaraan extends CI_Controller
   {
     parent::__construct();
 
+    if (!$this->session->has_userdata('sess_user_id')) {
+      redirect('auth');
+    }
+
     $this->load->model('Kendaraan_Model', 'kendaraan');
   }
 

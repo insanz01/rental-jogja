@@ -7,6 +7,10 @@ class Karyawan extends CI_Controller
   {
     parent::__construct();
 
+    if (!$this->session->has_userdata('sess_user_id')) {
+      redirect('auth');
+    }
+
     $this->load->model('Karyawan_Model', 'karyawan');
   }
 

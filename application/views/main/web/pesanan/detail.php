@@ -34,9 +34,9 @@
         <!-- Phone -->
         <div class="header_phone d-flex flex-row align-items-center justify-content-start">
           <div>
-            <div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik"></div>
+            <div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik" onclick="contact_us()"></div>
           </div>
-          <div>+62 123-456-7890</div>
+          <div onclick="contact_us()">+62 123-456-7890</div>
         </div>
       </div>
     </div>
@@ -96,6 +96,7 @@
                   <span class="text-danger">*Silahkan foto atau catat kode referensi</span> <br>
                   <span class="text-danger">**Harap simpan kode referensi</span>
                 </ul>
+                <div class="checkout_button trans_200" kode="<?= $order['kode_ref'] ?>" onclick="contact_me(this)"><a href="#">Hubungi Admin</a></div>
               </div>
             </div>
           </div>
@@ -205,3 +206,14 @@
   </div>
 
 </div>
+
+<script>
+  var contact_us = function() {
+    window.open("http://api.whatsapp.com/send?phone=6281234567890&text=halo%20gan", "_blank");
+  }
+
+  var contact_me = function(x) {
+    var kode = x.getAttribute('kode');
+    window.open("http://api.whatsapp.com/send?phone=6281234567890&text=CEK%20pesanan%20dengan%20kode%20booking%20"+kode)
+  }
+</script>

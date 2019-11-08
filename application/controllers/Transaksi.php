@@ -7,10 +7,36 @@ class Transaksi extends CI_Controller
   {
     parent::__construct();
 
+    if (!$this->session->has_userdata('sess_user_id')) {
+      redirect('auth');
+    }
+
     $this->load->model('Transaksi_Model', 'transaksi');
   }
 
   public function index()
+  {
+    $data['transaksi'] = $this->transaksi->tampil('booked');
+
+    $this->load->view('template/header');
+    $this->load->view('template/sidebar');
+    $this->load->view('template/topbar');
+    $this->load->view('main/transaksi/index', $data);
+    $this->load->view('template/footer');
+  }
+
+  public function selesai()
+  {
+    $data['transaksi'] = $this->transaksi->tampil('selesai');
+
+    $this->load->view('template/header');
+    $this->load->view('template/sidebar');
+    $this->load->view('template/topbar');
+    $this->load->view('main/transaksi/index', $data);
+    $this->load->view('template/footer');
+  }
+
+  public function semua()
   {
     $data['transaksi'] = $this->transaksi->tampil();
 
@@ -19,5 +45,20 @@ class Transaksi extends CI_Controller
     $this->load->view('template/topbar');
     $this->load->view('main/transaksi/index', $data);
     $this->load->view('template/footer');
+  }
+
+  public function ubah_transaksi()
+  {
+    if ($this->input->post('kode_ref')) {
+      $kode_ref = $this->input->post('kode_ref');
+
+      if ($this->transaksi->ubah_transaksi($kode_ref)) {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Kendaraan sudah diambil</div>');
+      } else {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Kode transaksi gagal digunakan</div>');
+      }
+    }
+
+    redirect('transaksi');
   }
 }

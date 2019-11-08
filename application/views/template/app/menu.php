@@ -19,9 +19,9 @@
   <div class="menu_contact">
     <div class="menu_phone d-flex flex-row align-items-center justify-content-start">
       <div>
-        <div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik"></div>
+        <div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik" onclick="contact_us()"></div>
       </div>
-      <div>+63 123-456-7890</div>
+      <div onclick="contact_us()">+63 123-456-7890</div>
     </div>
     <div class="menu_social">
       <ul class="menu_social_list d-flex flex-row align-items-start justify-content-start">

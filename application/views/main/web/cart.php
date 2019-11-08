@@ -34,9 +34,9 @@
 				<!-- Phone -->
 				<div class="header_phone d-flex flex-row align-items-center justify-content-start">
 					<div>
-						<div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik"></div>
+						<div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik" onclick="contact_us()"></div>
 					</div>
-					<div>+62 123-456-7890</div>
+					<div onclick="contact_us()">+62 123-456-7890</div>
 				</div>
 			</div>
 		</div>
@@ -328,5 +328,9 @@
 	var ubahTanggal = function() {
 		let lama = document.getElementById('lama');
 		console.log('lama sewa', lama.value)
+	}
+
+	var contact_us = function() {
+		window.open("http://api.whatsapp.com/send?phone=6281234567890&text=halo%20gan", "_blank");
 	}
 </script>

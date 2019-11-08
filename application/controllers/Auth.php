@@ -12,6 +12,10 @@ class Auth extends CI_Controller
 
   public function index()
   {
+    if ($this->session->has_userdata('sess_user_id')) {
+      redirect('transaksi');
+    }
+
     $this->form_validation->set_rules('username', 'Username', 'required|trim');
     $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
@@ -24,7 +28,7 @@ class Auth extends CI_Controller
       ];
 
       if ($this->auth->login($data)) {
-        redirect('main/index');
+        redirect('transaksi/index');
       } else {
         redirect('auth/index');
       }

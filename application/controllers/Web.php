@@ -122,6 +122,7 @@ class Web extends CI_Controller
     $lama = $this->input->post('lama');
 
     if ($this->web->cek_ketersediaan($plat_nomor, $tanggal, $lama) or strtotime($tanggal) < time()) {
+      $this->session->set_flashdata('gagal', 'true');
       $this->session->set_flashdata('pesan', 'Kendaraan sedang dipesan pada tanggal tersebut..');
       redirect('web');
     }
@@ -138,21 +139,19 @@ class Web extends CI_Controller
       'nama' => $mobil['nama']
     ];
 
-    // $this->book[] = $x;
-
-    // var_dump($this->book);
-    // die;
-
     $this->session->set_userdata('sess_book', $x);
 
-    // $this->cart->insert($data);
+    $this->session->set_flashdata('sukses', true);
 
     redirect('web');
   }
 
   public function hapus_keranjang()
   {
-    $this->session->unset_userdata('sess_book');
+    if ($this->session->has_userdata('sess_book')) {
+      $this->session->unset_userdata('sess_book');
+      $this->session->set_flashdata('hapus', true);
+    }
 
     redirect('web');
   }

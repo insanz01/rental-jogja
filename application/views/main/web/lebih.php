@@ -35,9 +35,9 @@
         <!-- Phone -->
         <div class="header_phone d-flex flex-row align-items-center justify-content-start">
           <div>
-            <div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik"></div>
+            <div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik" onclick="contact_us()"></div>
           </div>
-          <div>+62 123-456-7890</div>
+          <div onclick="contact_us()">+62 123-456-7890</div>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
           <?php foreach ($mobil as $m) : ?>
             <div class="col-xl-4 col-md-6">
               <div class="product">
-                <div class="product_image"><img height="234px" src="<?= base_url() . $m['url'] ?>" alt="<?= $m['gambar'] ?>"></div>
+                <div class="product_image"><img height="234px" style="width:100%" class="d-block" src="<?= base_url() . $m['url'] ?>" alt="<?= $m['gambar'] ?>"></div>
                 <div class="product_content">
                   <div class="product_info d-flex flex-row align-items-start justify-content-start">
                     <div>
@@ -89,9 +89,9 @@
                   </div>
                   <div class="product_buttons">
                     <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                      <div class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                      <div class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center" data-toggle="modal" data-target="#bookModal" optional="supir" data="<?= $m['plat_nomor'] ?>" onclick="lanjutKeBooking(this)">
                         <div>
-                          <div><img src="<?= base_url() ?>assets/main/images/heart_2.svg" class="svg" alt="">
+                          <div><img src="<?= base_url() ?>assets/main/images/car-driver.svg" class="svg" alt="">
                             <div>+</div>
                           </div>
                         </div>
@@ -268,13 +268,14 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="bookModalLabel">Pesan Mobil</h5>
+        <h5 class="modal-title" id="bookModalLabel">Pesan Mobil <span id="dengan_supir"></span></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form action="<?= base_url('web/tambahkan_ke_keranjang') ?>" method="post">
         <div class="modal-body">
+          <input type="hidden" id="supir" name="supir">
           <div class="form-group">
             <label for="plat">Plat Nomor</label>
             <input type="text" readonly class="form-control" name="plat" id="plat">
@@ -300,7 +301,17 @@
 <script>
   var lanjutKeBooking = function(x) {
     let plat = document.getElementById('plat');
-
+    if(x.getAttribute('optional')) {
+      let supir = document.getElementById("supir");
+      let ds = document.getElementById("dengan_supir");
+      
+      ds.innerText = "dengan Supir";
+      supir.value = x.getAttribute('optional');
+    }
     plat.value = x.getAttribute('data');
+  }
+
+  var contact_us = function() {
+    window.open("http://api.whatsapp.com/send?phone=6281234567890&text=halo%20gan", "_blank");
   }
 </script>

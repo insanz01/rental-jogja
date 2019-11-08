@@ -38,7 +38,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Masuk Aplikasi!</h1>
                   </div>
-                  <form class="user" action="<?= base_url('customer/index') ?>" method="post">
+                  <form class="user" action="<?= base_url('auth') ?>" method="post">
                     <div class="form-group">
                       <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Masukan Username">
                     </div>
