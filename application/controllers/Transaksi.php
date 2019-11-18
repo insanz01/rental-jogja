@@ -55,8 +55,21 @@ class Transaksi extends CI_Controller
       if ($this->transaksi->ubah_transaksi($kode_ref)) {
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Kendaraan sudah diambil</div>');
       } else {
-        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Kode transaksi gagal digunakan</div>');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Kode transaksi gagal digunakan</div>');
       }
+    }
+
+    redirect('transaksi');
+  }
+
+  public function hapus()
+  {
+    $id = $this->input->post('kode');
+
+    if ($this->transaksi->hapus($id)) {
+      $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Transaksi berhasil dihapus</div>');
+    } else {
+      $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Transaksi gagal dihapus</div>');
     }
 
     redirect('transaksi');

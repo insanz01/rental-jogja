@@ -15,11 +15,13 @@
             <table id="tabelku" class="table table-hovered">
               <thead class="text-center">
                 <th>No</th>
-                <th>Kode</th>
-                <th>Plat Nomor</th>
-                <th>Nama Customer</th>
-                <th>Tanggal Pesan</th>
-                <th>Tanggal Kembalikan</th>
+                <th>Instagram ID</th>
+                <th>e-KTP</th>
+                <th>SIM</th>
+                <th>NPWP</th>
+                <th>Kartu Keluarga</th>
+                <th>Supir</th>
+                <th>Tanggal</th>
                 <th>Status</th>
                 <th>Aksi</th>
               </thead>
@@ -28,17 +30,39 @@
                 <?php foreach ($transaksi as $t) : ?>
                   <tr class="text-center">
                     <td><?= $i++; ?></td>
-                    <td class="font-weight-bold"><?= $t['kode_ref'] ?></td>
-                    <td><?= $t['plat_nomor'] ?></td>
-                    <td><?= $t['nama'] ?></td>
-                    <td><?= $t['tanggal_pesan'] ?></td>
-                    <td><?= $t['tanggal_kembalikan'] ?></td>
+                    <td class="font-weight-bold"><?= $t['instagram_id'] ?></td>
+                    <td>
+                      <a href="<?= base_url() ?>datadiri/<?= $t['ktp'] ?>" target="_blank">
+                        <img src="<?= base_url() ?>datadiri/<?= $t['ktp'] ?>" width="50px" heigh="50px" alt="">
+                      </a>
+                    </td>
+                    <td>
+                      <?php if (!$t['supir']) : ?>
+                        <a href="<?= base_url() ?>datadiri/<?= $t['sim'] ?>" target="_blank">
+                          <img src="<?= base_url() ?>datadiri/<?= $t['sim'] ?>" width="50px" heigh="50px" alt="">
+                        </a>
+                      <?php endif; ?>
+                    </td>
+                    <td>
+                      <a href="<?= base_url() ?>datadiri/<?= $t['npwp'] ?>" target="_blank">
+                        <img src="<?= base_url() ?>datadiri/<?= $t['npwp'] ?>" width="50px" heigh="50px" alt="">
+                      </a>
+                    </td>
+                    <td>
+                      <?php if (!$t['supir']) : ?>
+                        <a href="<?= base_url() ?>datadiri/<?= $t['kk'] ?>" target="_blank">
+                          <img src="<?= base_url() ?>datadiri/<?= $t['kk'] ?>" width="50px" heigh="50px" alt="">
+                        </a>
+                      <?php endif; ?>
+                    </td>
+                    <td><?= ($t['supir']) ? 'Ya' : 'Tidak' ?></td>
+                    <td><?= date('d/m/Y', strtotime($t['tanggal'])) ?></td>
                     <td><?= $t['status'] ?></td>
                     <td>
-                      <a href="#" class="btn btn-danger btn-sm">
+                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapusModal" onclick="dapatkanData(this)" data="<?= $t['id'] ?>">
                         <i class="fas fa-fw fa-trash"></i>
-                      </a>
-                      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailModal" plat="<?= $t['plat_nomor']; ?>" nama="<?= $t['nama'] ?>" pesan="<?= $t['tanggal_pesan'] ?>" kembali="<?= $t['tanggal_kembalikan'] ?>" status="<?= $t['status'] ?>" kode="<?= $t['kode_ref'] ?>" onclick="dapatkanDetail(this)">
+                      </button>
+                      <button type="button" class="btn btn-info btn-sm" ktp="<?= $t['ktp'] ?>" sim="<?= $t['sim'] ?>" npwp="<?= $t['npwp'] ?>" kk="<?= $t['kk'] ?>" kode="<?= $t['id'] ?>" supir="<?= $t['supir'] ?>" data-toggle="modal" data-target="#detailModal" onclick="dapatkanDetail(this)">
                         <i class="fas fa-fw fa-eye"></i>
                       </button>
                     </td>
@@ -53,6 +77,38 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hapusModalLabel">Ingin menghapus data ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('transaksi/hapus') ?>" method="post">
+        <input type="hidden" name="kode" id="kode">
+        <div class="modal-body">
+          Data akan terhapus dari database ketika kamu tekan 'OK'
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">OK</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  var dapatkanData = function(x) {
+    let kode = document.getElementById('kode');
+    kode.value = x.getAttribute('data');
+    // console.log(kode.value);
+  }
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
@@ -69,24 +125,20 @@
         <div class="modal-body">
           <table class="table">
             <tr>
-              <td>Plat Nomor Kendaraan:</td>
-              <td><span id="plat"></span></td>
+              <td>KTP:</td>
+              <td><img id="ktp" width="200px" height="150px"></td>
+            </tr>
+            <tr id="disp_satu">
+              <td>SIM:</td>
+              <td><img id="sim" width="200px" height="150px"></td>
             </tr>
             <tr>
-              <td>Nama Pemesan:</td>
-              <td><span id="nama"></span></td>
+              <td>NPWP:</td>
+              <td><img id="npwp" width="200px" height="150px"></td>
             </tr>
-            <tr>
-              <td>Tanggal Ambil:</td>
-              <td><span id="ambil"></span></td>
-            </tr>
-            <tr>
-              <td>Tanggal Kembali:</td>
-              <td><span id="kembali"></span></td>
-            </tr>
-            <tr>
-              <td>Status:</td>
-              <td><span id="status"></span></td>
+            <tr id="disp_dua">
+              <td>KK:</td>
+              <td><img id="kk" width="200px" height="150px"></td>
             </tr>
           </table>
         </div>
@@ -105,20 +157,37 @@
 
     let kode_ref = document.getElementById('kode_ref'); // input type hidden
 
-    let kode_atas = document.getElementById('kode_atas');
-    let plat = document.getElementById('plat');
-    let nama = document.getElementById('nama');
-    let ambil = document.getElementById('ambil');
-    let kembali = document.getElementById('kembali');
+    let ktp = document.getElementById('ktp');
+    let sim = document.getElementById('sim');
+    let npwp = document.getElementById('npwp');
+    let kk = document.getElementById('kk');
+    let disp_satu = document.getElementById('disp_satu');
+    let disp_dua = document.getElementById('disp_dua');
+
     let status = document.getElementById('status');
 
     kode_ref.value = x.getAttribute('kode');
 
-    kode_atas.innerText = x.getAttribute('kode');
-    plat.innerText = x.getAttribute('plat');
-    nama.innerText = x.getAttribute('nama');
-    ambil.innerText = x.getAttribute('pesan');
-    kembali.innerText = x.getAttribute('kembali');
-    status.innerText = x.getAttribute('status');
+    var link = window.location.href;
+
+    var _link = link.split("transaksi");
+
+    var url = _link[0];
+
+    ktp.setAttribute('src', `${url}datadiri/${x.getAttribute('ktp')}`);
+    npwp.setAttribute('src', `${url}datadiri/${x.getAttribute('npwp')}`);
+
+    if (x.getAttribute('supir') == 'supir') {
+      disp_satu.style.display = "none";
+      disp_dua.style.display = "none";
+    } else {
+      sim.setAttribute('src', `${url}datadiri/${x.getAttribute('sim')}`);
+      kk.setAttribute('src', `${url}datadiri/${x.getAttribute('kk')}`);
+
+      disp_satu.style.display = "block";
+      disp_dua.style.display = "block";
+    }
+
+    // status.innerText = x.getAttribute('status');
   }
 </script>

@@ -23,7 +23,11 @@
                 </div>
                 <div class="form-group">
                   <label for="jenis">Jenis Kendaraan</label>
-                  <input type="text" class="form-control" name="jenis" id="jenis">
+                  <select name="jenis" id="jenis" class="form-control">
+                    <option value="CITY CAR">CITY CAR</option>
+                    <option value="SUV">SUV</option>
+                    <option value="MVP">MVP</option>
+                  </select>
                 </div>
               </div>
               <div class="col-lg-6 col-sm-12 col-xs-12">

@@ -47,7 +47,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Transaksi:</h6>
-            <a class="collapse-item" href="<?= base_url('transaksi/index') ?>">Booked</a>
+            <a class="collapse-item" href="<?= base_url('transaksi/index') ?>">Order</a>
             <a class="collapse-item" href="<?= base_url('transaksi/selesai') ?>">Transaksi Selesai</a>
             <a class="collapse-item" href="<?= base_url('transaksi/semua') ?>">Semua Transaksi</a>
           </div>
@@ -73,6 +73,20 @@
         <a class="nav-link" href="<?= base_url('karyawan/index') ?>">
           <i class="fas fa-fw fa-user-secret"></i>
           <span>Karyawan</span></a>
+      </li>
+
+      <!-- Akun -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('Account/index') ?>">
+          <i class="fas fa-fw fa-user-ninja"></i>
+          <span>Akun Admin</span></a>
+      </li>
+
+      <!-- Informasi -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('Setup/index') ?>">
+          <i class="fas fa-fw fa-cogs"></i>
+          <span>Informasi</span></a>
       </li>
 
       <!-- Divider -->

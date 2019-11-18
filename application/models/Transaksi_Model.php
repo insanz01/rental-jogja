@@ -6,24 +6,18 @@ class Transaksi_Model extends CI_Model
   public function tampil($choose = NULL)
   {
     if ($choose == "booked") {
-      $this->db->select('transaksi.id, transaksi.kode_ref, transaksi.plat_nomor, transaksi.id_cust, transaksi.tanggal_pesan, transaksi.tanggal_kembalikan, transaksi.status, customer.nama');
-      $this->db->from('transaksi');
-      $this->db->join('customer', 'transaksi.id_cust = customer.id');
-      $this->db->order_by('transaksi.id', 'asc');
-      $this->db->where('transaksi.status', 'booked');
+      $this->db->select("*");
+      $this->db->from('order');
+      $this->db->where('status', 'booked');
       return $this->db->get()->result_array();
     } else if ($choose == "selesai") {
-      $this->db->select('transaksi.id, transaksi.kode_ref, transaksi.plat_nomor, transaksi.id_cust, transaksi.tanggal_pesan, transaksi.tanggal_kembalikan, transaksi.status, customer.nama');
-      $this->db->from('transaksi');
-      $this->db->join('customer', 'transaksi.id_cust = customer.id');
-      $this->db->where('transaksi.status', 'selesai');
-      $this->db->order_by('transaksi.id', 'asc');
+      $this->db->select("*");
+      $this->db->from('order');
+      $this->db->where('status', 'selesai');
       return $this->db->get()->result_array();
     } else {
-      $this->db->select('transaksi.id, transaksi.kode_ref, transaksi.plat_nomor, transaksi.id_cust, transaksi.tanggal_pesan, transaksi.tanggal_kembalikan, transaksi.status, customer.nama');
-      $this->db->from('transaksi');
-      $this->db->join('customer', 'transaksi.id_cust = customer.id');
-      $this->db->order_by('transaksi.id', 'asc');
+      $this->db->select("*");
+      $this->db->from('order');
       return $this->db->get()->result_array();
     }
   }
@@ -35,6 +29,11 @@ class Transaksi_Model extends CI_Model
     $this->db->join('customer', 'transaksi.id_cust = customer.id');
     $this->db->where('transaksi.id', $id);
     return $this->db->get()->row_array();
+  }
+
+  public function hapus($id)
+  {
+    return $this->db->delete('order', ['id' => $id]);
   }
 
   public function tambah($data)

@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/main/styles/main_styles.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/main/styles/responsive.css">
   <?php endif; ?>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>

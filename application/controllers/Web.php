@@ -12,6 +12,8 @@ class Web extends CI_Controller
     $this->data['cart'] = false;
 
     $this->load->model('Web_Model', 'web');
+    $this->load->model('Setup_Model', 'setup');
+
     $this->load->library('cart');
   }
 
@@ -20,6 +22,7 @@ class Web extends CI_Controller
 
     $data['promo'] = $this->web->tampil_promo();
     $data['display'] = $this->web->tampil(9);
+    $data['setup'] = $this->setup->tampil();
 
     $this->load->view('template/app/header', $this->data);
     $this->load->view('template/app/menu');
@@ -30,6 +33,7 @@ class Web extends CI_Controller
   public function lebih()
   {
     $data['mobil'] = $this->web->tampil();
+    $data['setup'] = $this->setup->tampil();
 
     $this->load->view('template/app/header', $this->data);
     $this->load->view('template/app/menu');
@@ -175,6 +179,148 @@ class Web extends CI_Controller
         redirect('web/pesanan');
       }
     }
+  }
+
+  public function upload_gambar()
+  {
+    $config['upload_path'] = 'datadiri/';
+    $config['allowed_types'] = 'jpg|jpeg|png';
+
+    $this->load->library('upload', $config);
+
+    $x = [];
+
+    if (!$this->upload->do_upload('ktp')) {
+      $error = array('error' => $this->upload->display_errors());
+
+      var_dump($error);
+      die;
+      // $this->load->view('main/kendaraan/tambah', $error);
+    } else {
+      $data = array('image_metadata' => $this->upload->data());
+
+      // var_dump($data);
+      $x['ktp'] = $data['image_metadata']['file_name'];
+    }
+
+    if (!$this->upload->do_upload('sim')) {
+      $error = array('error' => $this->upload->display_errors());
+
+      var_dump($error);
+      die;
+      // $this->load->view('main/kendaraan/tambah', $error);
+    } else {
+      $data = array('image_metadata' => $this->upload->data());
+
+      // var_dump($data);
+      $x['sim'] = $data['image_metadata']['file_name'];
+    }
+
+    if (!$this->upload->do_upload('kk')) {
+      $error = array('error' => $this->upload->display_errors());
+
+      var_dump($error);
+      die;
+      // $this->load->view('main/kendaraan/tambah', $error);
+    } else {
+      $data = array('image_metadata' => $this->upload->data());
+
+      // var_dump($data);
+      $x['kk'] = $data['image_metadata']['file_name'];
+    }
+
+    if (!$this->upload->do_upload('npwp')) {
+      $error = array('error' => $this->upload->display_errors());
+
+      var_dump($error);
+      die;
+      // $this->load->view('main/kendaraan/tambah', $error);
+    } else {
+      $data = array('image_metadata' => $this->upload->data());
+
+      // var_dump($data);
+      $x['npwp'] = $data['image_metadata']['file_name'];
+    }
+  }
+
+  public function order()
+  {
+    $config['upload_path'] = 'datadiri/';
+    $config['allowed_types'] = 'jpg|jpeg|png';
+
+    $this->load->library('upload', $config);
+
+    $x = [
+      'instagram_id' => $this->input->post('user_ig', 1),
+      'tanggal' => date('Y-m-d', time()),
+      'status' => 'booked',
+      'supir' => $this->input->post('supir')
+    ];
+
+    if (!$this->upload->do_upload('ktp')) {
+      $error = array('error' => $this->upload->display_errors());
+
+      var_dump($error);
+      die;
+      // $this->load->view('main/kendaraan/tambah', $error);
+    } else {
+      $data = array('image_metadata' => $this->upload->data());
+
+      // var_dump($data);
+      $x['ktp'] = $data['image_metadata']['file_name'];
+    }
+
+    if ($this->input->post('supir')) {
+      $x['sim'] = '';
+      $x['kk'] = '';
+    } else {
+      if (!$this->upload->do_upload('sim')) {
+        $error = array('error' => $this->upload->display_errors());
+
+        var_dump($error);
+        die;
+        // $this->load->view('main/kendaraan/tambah', $error);
+      } else {
+        $data = array('image_metadata' => $this->upload->data());
+
+        // var_dump($data);
+        $x['sim'] = $data['image_metadata']['file_name'];
+      }
+
+      if (!$this->upload->do_upload('kk')) {
+        $error = array('error' => $this->upload->display_errors());
+
+        var_dump($error);
+        die;
+        // $this->load->view('main/kendaraan/tambah', $error);
+      } else {
+        $data = array('image_metadata' => $this->upload->data());
+
+        // var_dump($data);
+        $x['kk'] = $data['image_metadata']['file_name'];
+      }
+    }
+
+    if (!$this->upload->do_upload('npwp')) {
+      $error = array('error' => $this->upload->display_errors());
+
+      var_dump($error);
+      die;
+      // $this->load->view('main/kendaraan/tambah', $error);
+    } else {
+      $data = array('image_metadata' => $this->upload->data());
+
+      // var_dump($data);
+      $x['npwp'] = $data['image_metadata']['file_name'];
+    }
+
+    if ($this->web->simpan_order($x)) {
+      $this->session->set_flashdata('sukses', true);
+    } else {
+      $this->session->set_flashdata('gagal', true);
+    }
+
+    redirect('web');
   }
 
   public function detail_pesanan()

@@ -51,7 +51,7 @@ class Kendaraan extends CI_Controller
         'jenis' => $this->input->post('jenis'),
         'harga' => $this->input->post('harga'),
         'url' => 'mobil/',
-        'status' => 'tesedia'
+        'status' => 'tersedia'
       ];
 
       $this->load->library('upload', $config);
@@ -135,6 +135,8 @@ class Kendaraan extends CI_Controller
         } else {
           $data = array('image_metadata' => $this->upload->data());
 
+          unlink($old_img_path);
+
           $mobil['gambar'] = $data['image_metadata']['file_name'];
           $mobil['url'] = $mobil['url'] . $mobil['gambar'];
 
@@ -147,8 +149,6 @@ class Kendaraan extends CI_Controller
           }
         }
       } else {
-        var_dump('ada yang salah');
-        die;
         $mobil['url'] = $mobil['url'] . $mobil['gambar'];
         if ($this->kendaraan->ubah($mobil)) {
           $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil diubah!</div>');

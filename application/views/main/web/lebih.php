@@ -8,8 +8,8 @@
       <div class="logo">
         <a href="#">
           <div class="d-flex flex-row align-items-center justify-content-start">
-            <div><img src="<?= base_url() ?>assets/main/images/car.svg" width="40px" alt=""></div>
-            <div>Rental Jogja</div>
+            <div><img src="<?= base_url() . $setup['logo_perusahaan'] ?>" width="40px" alt=""></div>
+            <div><?= $setup['nama_perusahaan'] ?></div>
           </div>
         </a>
       </div>
@@ -17,8 +17,6 @@
       <nav class="main_nav">
         <ul class="d-flex flex-row align-items-start justify-content-start">
           <li><a href="<?= base_url('web') ?>">Home</a></li>
-          <li><a href="<?= base_url('web/keranjang') ?>">Cart</a></li>
-          <li><a href="<?= base_url('web/pesanan') ?>">Pesanan</a></li>
         </ul>
       </nav>
       <div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
@@ -28,16 +26,12 @@
             <div><img src="<?= base_url() ?>assets/main/images/user.svg" alt="https://www.flaticon.com/authors/freepik">
             </div>
           </a></div>
-        <!-- Cart -->
-        <div class="cart"><a href="<?= base_url('web/keranjang') ?>">
-            <div><img class="svg" src="<?= base_url() ?>assets/main/images/cart.svg" alt="https://www.flaticon.com/authors/freepik"></div>
-          </a></div>
         <!-- Phone -->
         <div class="header_phone d-flex flex-row align-items-center justify-content-start">
           <div>
             <div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik" onclick="contact_us()"></div>
           </div>
-          <div onclick="contact_us()">+62 123-456-7890</div>
+          <div onclick="contact_us()">+62 8132-9682-911</div>
         </div>
       </div>
     </div>
@@ -52,17 +46,17 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
-            <div class="section_title text-center">Mobil yang tersedia</div>
+            <div class="section_title text-center"><?= $setup['moto'] ?></div>
           </div>
         </div>
         <div class="row page_nav_row">
           <div class="col">
             <div class="page_nav">
               <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">SPORT</a></li>
+                <li class="active"><a href="#">MVP</a></li>
                 <li><a href="#">SUV</a></li>
                 <li><a href="#">CITY CAR</a></li>
-                <li><a href="#">TRUCK</a></li>
+                <!-- <li><a href="#">TRUCK</a></li> -->
               </ul>
             </div>
           </div>
@@ -89,14 +83,14 @@
                   </div>
                   <div class="product_buttons">
                     <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                      <div class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center" data-toggle="modal" data-target="#bookModal" optional="supir" data="<?= $m['plat_nomor'] ?>" onclick="lanjutKeBooking(this)">
+                      <div class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center" data-toggle="modal" data-target="#bookModal" optional="supir" data="<?= $m['nama'] ?>" onclick="lanjutKeBooking(this)">
                         <div>
                           <div><img src="<?= base_url() ?>assets/main/images/car-driver.svg" class="svg" alt="">
                             <div>+</div>
                           </div>
                         </div>
                       </div>
-                      <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center" data-toggle="modal" data-target="#bookModal" data="<?= $m['plat_nomor'] ?>" onclick="lanjutKeBooking(this)">
+                      <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center" data-toggle="modal" data-target="#bookModal" data="<?= $m['nama'] ?>" onclick="lanjutKeBooking(this)">
                         <div>
                           <div><img src="<?= base_url() ?>assets/main/images/cart.svg" class="svg" alt="">
                             <div>+</div>
@@ -173,13 +167,13 @@
                 <div class="footer_logo">
                   <a href="#">
                     <div class="d-flex flex-row align-items-center justify-content-start">
-                      <div class="footer_logo_icon"><img src="<?= base_url() ?>assets/main/images/car.svg" width="50px" alt=""></div>
-                      <div>Rental Jogja</div>
+                      <div class="footer_logo_icon"><img src="<?= base_url() . $setup['logo_perusahaan'] ?>" width="50px" alt=""></div>
+                      <div><?= $setup['nama_perusahaan'] ?></div>
                     </div>
                   </a>
                 </div>
                 <div class="footer_about_text">
-                  <p>Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse potenti. Fusce venenatis vel velit vel euismod.</p>
+                  <p><?= $setup['alamat'] ?></p>
                 </div>
               </div>
             </div>
@@ -247,10 +241,10 @@
                 </div>
                 <nav class="footer_nav ml-md-auto order-md-2 order-1">
                   <ul class="d-flex flex-row align-items-center justify-content-start">
-                    <li><a href="category.html">SPORT</a></li>
-                    <li><a href="category.html">SUV</a></li>
-                    <li><a href="category.html">CITY CAR</a></li>
-                    <li><a href="category.html">TRUCK</a></li>
+                    <li><a href="#">MVP</a></li>
+                    <li><a href="#">SUV</a></li>
+                    <li><a href="#">CITY CAR</a></li>
+                    <!-- <li><a href="category.html">TRUCK</a></li> -->
                   </ul>
                 </nav>
               </div>
@@ -273,20 +267,29 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('web/tambahkan_ke_keranjang') ?>" method="post">
+      <form action="<?= base_url('web/order') ?>" onsubmit="return pesan(this)" method="post" enctype="multipart/form-data">
         <div class="modal-body">
-          <input type="hidden" id="supir" name="supir">
+          <input type="hidden" name="supir" id="supir">
+          <input type="hidden" name="nama" id="nama">
           <div class="form-group">
-            <label for="plat">Plat Nomor</label>
-            <input type="text" readonly class="form-control" name="plat" id="plat">
+            <label for="ktp">e-KTP</label>
+            <input type="file" readonly class="form-control" name="ktp" id="ktp" required>
+          </div>
+          <div class="form-group" id="disp_satu">
+            <label for="sim">SIM A</label>
+            <input type="file" id="sim" name="sim" class="form-control" required>
           </div>
           <div class="form-group">
-            <label for="tanggal">Tanggal Pengambilan</label>
-            <input type="date" id="tanggal" name="tanggal" class="form-control">
+            <label for="npwp">NPWP</label>
+            <input type="file" id="npwp" name="npwp" class="form-control" required>
+          </div>
+          <div class="form-group" id="disp_dua">
+            <label for="kk">Kartu Keluarga Asli</label>
+            <input type="file" class="form-control" id="kk" name="kk" required>
           </div>
           <div class="form-group">
-            <label for="lama">Lama Pesan (hari)</label>
-            <input type="number" class="form-control" id="lama" name="lama">
+            <label for="user_ig">User ID (Instagram)</label>
+            <input type="text" class="form-control" id="user_ig" name="user_ig" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -297,21 +300,66 @@
     </div>
   </div>
 </div>
+<?php if ($this->session->flashdata('sukses')) : ?>
+  <script>
+    var pesan_sukses = function() {
+      swal.fire("Berhasil dipesan", "Terimakasih telah order", "success");
+      // alert("Ditambahkan ke dalam keranjang")
+    }
+
+    pesan_sukses();
+  </script>
+<?php elseif ($this->session->flashdata('gagal')) : ?>
+  <script>
+    var pesan_gagal = function() {
+      swal.fire("Gagal dipesan", "Silahkan coba lagi", "warning");
+    }
+
+    pesan_gagal();
+  </script>
+<?php elseif ($this->session->flashdata('hapus')) : ?>
+  <script>
+    var pesan_hapus = function() {
+      alert("Mobil berhasil dihapus dari keranjang");
+    }
+
+    pesan_hapus();
+  </script>
+<?php endif; ?>
 
 <script>
   var lanjutKeBooking = function(x) {
-    let plat = document.getElementById('plat');
-    if(x.getAttribute('optional')) {
-      let supir = document.getElementById("supir");
-      let ds = document.getElementById("dengan_supir");
-      
+    let nama = document.getElementById('nama');
+    let disp_satu = document.getElementById("disp_satu");
+    let disp_dua = document.getElementById("disp_dua");
+    let ds = document.getElementById("dengan_supir");
+    let supir = document.getElementById("supir");
+    if (x.getAttribute('optional')) {
+
+      disp_satu.style.display = "none";
+      disp_dua.style.display = "none";
+
       ds.innerText = "dengan Supir";
       supir.value = x.getAttribute('optional');
+    } else {
+      ds.innerText = "";
+
+      disp_satu.style.display = "block";
+      disp_dua.style.display = "block";
     }
-    plat.value = x.getAttribute('data');
+    nama.value = x.getAttribute('data');
+  }
+
+  var pesan = function(x) {
+    console.log(x);
+    let ig = x.user_ig.value;
+    let mobil = x.nama.value;
+    window.open(`http://api.whatsapp.com/send?phone=6281329682911&text=Halo _Jogja_ _One_ _Day_ _Trip_, Saya dengan, %0a *ID* *IG* : _*${ig}*_ %0a Dengan Mobil _*${mobil}*_ Mohon info _PRICELIST_ nya Terimakasih.`, "_blank");
+
+    return true;
   }
 
   var contact_us = function() {
-    window.open("http://api.whatsapp.com/send?phone=6281234567890&text=halo%20gan", "_blank");
+    window.open("http://api.whatsapp.com/send?phone=6281329682911&text=halo%20gan", "_blank");
   }
 </script>

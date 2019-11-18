@@ -85,4 +85,9 @@ class Web_Model extends CI_Model
     $this->db->where('transaksi.id', $id);
     return $this->db->get()->row_array();
   }
+
+  public function simpan_order($data)
+  {
+    return $this->db->insert('order', $data);
+  }
 }

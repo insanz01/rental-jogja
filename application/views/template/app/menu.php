@@ -11,8 +11,6 @@
   <div class="menu_nav">
     <ul>
       <li><a href="<?= base_url('web') ?>">Home</a></li>
-      <li><a href="<?= base_url('web/keranjang') ?>">Cart</a></li>
-      <li><a href="<?= base_url('web/pesanan') ?>">Pesanan</a></li>
     </ul>
   </div>
   <!-- Contact Info -->
@@ -21,7 +19,7 @@
       <div>
         <div><img src="<?= base_url() ?>assets/main/images/phone.svg" alt="https://www.flaticon.com/authors/freepik" onclick="contact_us()"></div>
       </div>
-      <div onclick="contact_us()">+63 123-456-7890</div>
+      <div onclick="contact_us()">+62 8132-9682-911</div>
     </div>
     <div class="menu_social">
       <ul class="menu_social_list d-flex flex-row align-items-start justify-content-start">
